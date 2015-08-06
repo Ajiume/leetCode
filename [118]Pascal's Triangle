@@ -18,3 +18,29 @@
 *
 *
 */
+
+/**
+*使用List
+*/
+public class Solution {
+    public List<List<Integer>> generate(int numRows) {
+        List<List<Integer>> list = new ArrayList<List<Integer>>();
+        if(numRows <=0){
+            return list;
+        }
+        ArrayList<Integer> prev = new ArrayList<Integer>();
+        prev.add(1);
+        list.add(prev);
+        for(int i=2;i<=numRows;i++){
+            ArrayList<Integer> current = new ArrayList<Integer>();
+            current.add(1);
+            for(int j=0;j<prev.size()-1;j++){
+                current.add(prev.get(j) + prev.get(j+1));
+            }
+            current.add(1);
+            list.add(current);
+            prev = current;
+        }
+        return list;
+    }
+}
