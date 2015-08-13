@@ -1,0 +1,52 @@
+  /*
+	 * 
+	 * Merge k Sorted Lists 
+	 * 
+	 * Merge k sorted linked lists and return it as one sorted list. Analyze and describe its complexity.
+	 * 
+	 * 
+	 */
+	 
+	 public class ListNode{
+	  int val;
+	  ListNode next;
+	  ListNode(int x){
+	    this.val = x;
+	    this.next = null;
+	  }
+	 }
+	 
+	 public ListNode mergeKLists(ArrayList<ListNode> lists){
+	    if(lists == null || lists.size() == 0){
+	      return null;
+	    }
+	    
+	    return mergeHelper(lists, 0, lists.size() - 1);
+	 }
+	 
+	 public ListNode mergeHelper(ListNode lists, int start, int end){
+	      if(start == end){
+	          return lists.get(start);
+	      }
+	      int middle = start + (end - start)/2;
+	      ListNode left = mergeHelper(lists,0,middle);
+	      ListNode right = mergeHelper(lists,middle+1,end);
+	      
+	      return merge2Lists(left,right);
+	 }
+	 public ListNode merge2Lists(ListNode listOne, ListNode Two){
+  	  ListNode dummy = new ListNode(0);
+  	  ListNode prev = dummy;
+  	  while(left != null && right != null){
+  	      if(left.val < right.val){
+  	        prev.next = left;
+  	        left = left.next;
+  	      }else{
+  	        prev.next = right;
+  	        right = right.next;
+  	      }
+  	      prev = prev.next;
+  	  }
+  	  prev.next = (left != null) ? left : right;
+  	  return dummy.next;
+	 }
