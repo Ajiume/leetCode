@@ -32,6 +32,10 @@
 	    }
 	 }
 	 
+	 /**
+	 *
+	 *Solution 1
+	 */
 	 public TreeNode invertTree(TreeNode root){
 	      if(root == null){
 	          return root;
@@ -46,4 +50,22 @@
 	      return root;
 	 }
 	 
+	  /**
+	 *
+	 *Solution 2
+	 */
 	 
+	public void invertBinaryTree(TreeNode root){
+		if(root == null){
+			return;
+		}
+		
+		TreeNode temp = root.left;
+		root.left = root.right;
+		root.right = temp;
+		
+		invertBinaryTree(root.left);
+		invertBinaryTree(root.right);
+		
+	}
+	
