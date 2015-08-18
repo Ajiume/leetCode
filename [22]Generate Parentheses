@@ -10,7 +10,7 @@
 	 * 
 	 * 
 	 */
-	/**
+	/**Solution 1
 	 * 采用递归树的思想，当左括号数大于右括号数时可以加左或者右括号，否则只能加左括号，当左括号数达到n时，剩下全部加右括号。
 	 * 
 	 */
@@ -37,6 +37,31 @@
 	 }
 	 
 	 /**
+	 *Solution 2   nice 
+	 */
+	 
+	 public List<String> generateParenthesis(int n){
+	 	ArrayList<String> list = new ArrayList<String>();
+	 	getPair(list, "", n, n);
+	 	return list;
+	 }
+	 
+	 private void getPair(ArrayList<String> list, String str, int left, int right){
+	 	if(left > right || left <0 || right < 0){
+	 		return;
+	 	}
+	 	if(left == 0 && right == 0){
+	 		list.add(str);
+	 		return;
+	 	}
+	 	
+	 	getPair(list, str + "(", left -1, right);
+	 	getPair(list, str + ")", left, right - 1);
+	 }
+	 
+	 
+	 /**
+	 * Solution 3
 	 *  这种做法还没细看，先记录，后面再查看
 	 *
 	 * 给出 n 对括号的各种组合。
