@@ -1,0 +1,80 @@
+/**
+	 * Generate Parentheses
+	 * 
+	 * Given n pairs of parentheses, write a function to generate all
+	 * combinations of well-formed parentheses.
+	 * 
+	 * For example, given n = 3, a solution set is:
+	 * 
+	 * "((()))", "(()())", "(())()", "()(())", "()()()"
+	 * 
+	 * 
+	 */
+	/**
+	 * 采用递归树的思想，当左括号数大于右括号数时可以加左或者右括号，否则只能加左括号，当左括号数达到n时，剩下全部加右括号。
+	 * 
+	 */
+	 
+	 public List<String> generateParenthesis(int n){
+	      ArrayList<String> res = new ArrayList<String>();
+	      generate(res, "", 0, 0, n);
+	      return res;
+	 }
+	 
+	 public void generate(ArrayList<String> res, String temp, int lhs, int rhs, int n){
+	       if(lhs == n){
+	          for(int i=0; i< n - rhs; i++){
+	              temp = temp + ")";
+	          }
+	          res.add(temp);
+	          return;
+	       }
+	       
+	       generate(res, temp + "(", lhs + 1, rhs,n);
+	       if(lhs > rhs){
+	          generate(res, temp + ")", lhs, rhs + 1, n);
+	       }
+	 }
+	 
+	 /**
+	 *  这种做法还没细看，先记录，后面再查看
+	 *
+	 * 给出 n 对括号的各种组合。
+	 * 
+	 * DFS: Time ~ O(N!), Space ~ O(N) 递归中记录左右括号的数量分别为 left 和 right，有三种情况： 
+	 * 如果left == n，表明只加右括号至 right == n 即可； 
+	 * 如果 left != n 但 left ==right，表明之前的括号已成对，只能加 '('； 如果上述情况皆不满足，则可以加 '(' 也可以加 ')'，
+	 * 注意在试完加 '(' 后再试加')' 前，要将之前的加入的括号都删除（用一个 int 记住加 '(' 的位置）。
+	 *  注意：因为有第二种情况限制，但 right == left时只加 '('，所以不会出现 right > left 的情况。
+	 */
+	
+	public List<String> generateParenthesis(int n){
+		ArrayList<String> list = new ArrayList<String>();
+		
+		addUp(n, 0, 0, new StringBuffer(), list);
+		return list;
+	}
+
+	private void addUp(int n, int left, int right, StringBuffer str, ArrayList<String> list) {
+		if(left == n){
+			while(right < n){
+				str.append(')');
+				right++;
+			}
+			list.add(str.toString());
+			
+		}else if(left == right){
+			addUp(n, left + 1, right, str.append('('), list);
+
+		}else{
+			int len = str.length();
+			addUp(n, left + 1, right, str.append('('), list);
+			
+			str.delete(len, str.length());
+			
+			addUp(n, left, right + 1, str.append(')'), list);
+		}
+		
+		
+		
+	}
