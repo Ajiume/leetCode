@@ -1,4 +1,4 @@
-/**
+	/**
 	 * Contains Duplicate II 
 	 * 
 	 * Given an array of integers and an integer k, 
@@ -7,11 +7,21 @@
 	 * 
 	 * 
 	 */
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
+	public boolean containsNearbyDuplicate(int[] nums, int k){
+		HashSet<Integer> set = new HashSet<Integer>();
+		int start = 0, end = 0;
+		for(int i =0; i < nums.length; i++){
+			if(!set.contains(nums[i])){
+				set.add(nums[i]);
+				end++;
+			}else{
+				return true;
+			}
+			if(end - start > k){
+				set.remove(nums[start]);
+				start++;
+			}
+		}
+		return false;
+	}
+	
